@@ -129,6 +129,7 @@ local function HandleActionPacket(packet)
                     for i = 0,0x400 do
                         if (AshitaCore:GetMemoryManager():GetEntity():GetServerId(i) == targetId) then
                             currentTarget.Name = AshitaCore:GetMemoryManager():GetEntity():GetName(i);
+                            currentTarget.Index = i;
                         end
                     end
                 end
@@ -259,6 +260,14 @@ ashita.events.register('d3d_present', 'd3d_present_cb', function ()
         percentString = string.format('(%.02f%%)', (sumProcs / sumHits) * 100);
     end
     textBlock = textBlock .. string.format('All: %u/%u %s', sumProcs, sumHits, percentString);
+
+    if (currentTarget.Index ~= nil) then
+        if (AshitaCore:GetMemoryManager():GetEntity():GetHPPercent(currentTarget.Index) == 0) then
+            currentTarget.TH = math.min(currentPlayerTH, 8);
+        elseif (AshitaCore:GetMemoryManager():GetEntity():GetStatus(currentTarget.Index) == 0) then
+            currentTarget.TH = math.min(currentPlayerTH, 8);
+        end
+    end
 
     fontObj.text = textBlock;
 end);
