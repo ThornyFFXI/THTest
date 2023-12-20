@@ -203,7 +203,7 @@ end
 local usedSequences = T{};
 local newChunk = true;
 ashita.events.register('packet_in', 'packet_in_cb', function (e)
-    if not newChunk then
+    if (not newChunk) or (e.injected) then
         return;
     end
     
