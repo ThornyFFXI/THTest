@@ -6,38 +6,31 @@ addon.link      = 'https://github.com/ThornyFFXI/';
 
 require('common');
 local fontObj;
-local gdi = require('gdifonts.include');
-local fontSettings = {    
-    bg_overlap = 2,
-    box_height = 0,
-    box_width = 0,
-    font_alignment = 0,
-    font_color = 0xFFFFFFFF,
-    font_family = 'Arial',
-    font_flags = 0,
-    font_height = 16,
-    gradient_color = 0x00000000,
-    gradient_style = 0,
-    opacity = 1,
-    outline_color = 0xFF000000,
-    outline_width = 2,
-    position_x = 0,
-    position_y = 0,
-    text = '',
+local fonts = require('fonts');
+local fontSettings = T{
     visible = true,
-    z_order = 0,
-    background = { visible = true, corner_rounding=3 }
+    font_family = 'Arial',
+    font_height = 15,
+    color = 0xFFFFFFFF,
+    color_outline  = 0xFF000000,
+    position_x = 100,
+    position_y = 100,
+    draw_flags = FontDrawFlags.Outlined,
+    background = T{
+        visible = true,
+        color = 0x80000000,
+    }
 };
 
 local currentTarget = {};
 local globalProcCount = T{};
-local currentPlayerTH = 15;
+local currentPlayerTH = 21;
 
 local filePath;
 local backupPath;
 
 ashita.events.register('load', 'load_cb', function ()
-    fontObj = gdi:create_object(fontSettings, false);
+    fontObj = fonts.new(fontSettings);
     local time = os.date('*t');
     local folderName = string.format('%slogs/thtest', AshitaCore:GetInstallPath());
     ashita.fs.create_dir(folderName);
@@ -282,9 +275,12 @@ ashita.events.register('d3d_present', 'd3d_present_cb', function ()
         end
     end
 
-    fontObj:set_text(textBlock);
+    fontObj.text = textBlock;
 end);
 
 ashita.events.register('unload', 'unload_cb', function ()
-    gdi:destroy_interface();
+    if (fontObj ~= nil) then
+        fontObj:destroy();
+        fontObj = nil;
+    end
 end);

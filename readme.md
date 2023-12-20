@@ -1,6 +1,6 @@
 ## THTest
 This addon, for Ashita4, tracks TH data as measured by proc rate per round, sorted by current mob TH level.  To use:<br>
-- Copy the main addon lua (thtest.lua) to `Ashita/Addons/THTest/` (you may need to create this folder).
+- Copy the entire repo to `Ashita/Addons/THTest/` (you may need to create this folder).
 - Edit line 27 to reflect your current TH.  Don't forget traits.  Save the file.  Do not change your gear while running the test, this does not track equipment.
 - Load the addon with `/addon load THTest`.
 - Kill some stuff, ensuring that nobody else is applying or upgrading TH.  You should probably not use SA/TA/Feint, they will skew data.
