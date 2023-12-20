@@ -40,12 +40,12 @@ ashita.events.register('load', 'load_cb', function ()
     backupPath =string.format('%s/%s', folderName, fileName);
     if (not ashita.fs.exists(filePath)) then
         local file = io.open(filePath, 'w');
-        file:write('"Timestamp","Mob TH Level","Player TH Level","Proc Index","Proc Crit","First Hit Crit"\n');
+        file:write('"Timestamp","Mob TH Level","Player TH Level","Proc Index","Proc Crit","First Hit Crit","First Hit Land","First Hit Damage"\n');
         file:close();
     end
     if (not ashita.fs.exists(backupPath)) then
         local file = io.open(backupPath, 'w');
-        file:write('"Timestamp","Mob TH Level","Player TH Level","Proc Index","Proc Crit","First Hit Crit"\n');
+        file:write('"Timestamp","Mob TH Level","Player TH Level","Proc Index","Proc Crit","First Hit Crit","First Hit Land","First Hit Damage"\n');
         file:close();
     end
 end);
@@ -150,8 +150,12 @@ local function HandleActionPacket(packet)
 
                 local procIndex = 0;
                 local wasCrit = T{};
+                local wasHit = T{};
+                local hitDamage = T{};
                 for index,action in ipairs(target.Actions) do
                     wasCrit[index] = (action.Message == 67);
+                    wasHit[index] = ((action.Message ~= 15) and (action.Message ~= 63));
+                    hitDamage[index] = action.Param;
                     local addEffect = action.AdditionalEffect
                     if (addEffect) then
                         if (addEffect.Message == 603) then
@@ -168,13 +172,15 @@ local function HandleActionPacket(packet)
                     procCrit = (wasCrit[procIndex] and 1 or 0);
                 end
 
-                local output = string.format('%u,%u,%u,%u,%u,%u\n',
+                local output = string.format('%u,%u,%u,%u,%u,%u,%u,%u\n',
                     os.time(),
                     currentTH,
                     currentPlayerTH,
                     procIndex,
                     procCrit,
-                    wasCrit[1] and 1 or 0);
+                    wasCrit[1] and 1 or 0,
+                    wasHit[1] and 1 or 0,
+                    hitDamage[1]);
 
                 local file = io.open(filePath, 'a');
                 if (file) then

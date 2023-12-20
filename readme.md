@@ -14,6 +14,8 @@ Files will be automatically created in `Ashita/logs/thtest/`.  If you open the C
 - Proc Index (The attack within the round that a proc occured, 0 if no proc.  Should always be 1 if procs only occur on first hit.)
 - Proc Crit (1 if the proc was on a crit, 0 if not.)
 - First Hit Crit (1 if the first hit of the round was a crit, 0 if not)
+- First Hit Land (1 if the first hit of the round landed, 0 if it missed)
+- First Hit Damage (damage from first hit of round)
 
 
 ## Display
