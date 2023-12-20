@@ -10,7 +10,7 @@ This addon, for Ashita4, tracks TH data as measured by proc rate per round, sort
 Files will be automatically created in `Ashita/logs/thtest/`.  If you open the CSV in excel while the addon is running, it will interfere with the addon, as excel claims exclusive access.  Any data created while the file cannot be accessed will go to a seperate file with the `_missed` added to the filename.  If you open both at once, logging will fail entirely.  It's best to open in notepad++, make a copy of the file, etc.. if you need to look at the raw data while the addon is running.  Each line represents one attack round.  The headings are:
 - Timestamp (UTC stamp of when the attack round occured)
 - Mob TH Level
-- Player TH Level (sourced from line 27 of the addon, make sure to update this when changing tests!!)
+- Player TH Level (sourced from line 27 of the addon, make sure to update this and reload addon when changing tests!!)
 - Proc Index (The attack within the round that a proc occured, 0 if no proc.  Should always be 1 if procs only occur on first hit.)
 - Proc Crit (1 if the proc was on a crit, 0 if not.)
 - First Hit Crit (1 if the first hit of the round was a crit, 0 if not)
