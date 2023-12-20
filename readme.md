@@ -21,4 +21,4 @@ Files will be automatically created in `Ashita/logs/thtest/`.  If you open the C
 ## Display
 The addon also displays a real time display for verifying behavior/user satisfaction.  It looks like this:<br>
 ![Alt text](images/screenshot.png?raw=true "Display")<br>
-It can be dragged with shift-click-drag.
+It can be dragged with shift-click-drag.  You can screenshot the current display directly to your log folder with `/screenshotth`.

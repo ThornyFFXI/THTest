@@ -285,6 +285,18 @@ ashita.events.register('d3d_present', 'd3d_present_cb', function ()
     fontObj:set_text(textBlock);
 end);
 
+ashita.events.register('command', 'command_cb', function (e)
+    local args = e.command:args();
+    if (#args == 0) then
+        return;
+    end
+    if (string.lower(args[1]) == '/screenshotth') then
+        gdi:dump_frame(string.format('%slogs/thtest', AshitaCore:GetInstallPath()));
+        print('Screenshotting next frame..');
+        e.blocked = true;
+    end
+end);
+
 ashita.events.register('unload', 'unload_cb', function ()
     gdi:destroy_interface();
 end);
